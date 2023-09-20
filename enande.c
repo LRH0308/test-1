@@ -5,7 +5,7 @@
 #define max 16
 void interface();
 int s_gets(char* input);
-void display(char* input);
+void Display(char* input);
 void encryption();
 void decryption();
 int main()
@@ -58,7 +58,7 @@ void interface()
 }
 int s_gets(char* input)
 {
-	printf("请输入要加密的密码：");
+	printf("请输入密码：");
 	scanf("%s", input);
 	int num = 0; //记录密码中数字个数
 	int low = 0; //记录密码中小写字母个数
@@ -88,23 +88,22 @@ int s_gets(char* input)
 		return 1;
 	}
 }
-void display(char* input)
-{
-	printf("%s", input);
-}
 void encryption()
 {
-	char input[100];
+	char input[50];
+	int i;
+
 	int n = s_gets(input);
 	while ( n == -1)
 	{
 		n = s_gets(input);
 	}
-	for (int i = 0;i < 16;i++)
+
+	for (i = 0;i < strlen(input);i++)
 	{
 		if (48 <= input[i] && input[i] <= 57)
 		{
-			input[i] = input[i] + 3;
+			input[i] = input[i] + (i + 1) + 3;
 			if (input[i] > 57)
 			{
 				input[i] = input[i] - 8;
@@ -112,7 +111,7 @@ void encryption()
 		}
 		if (97 <= input[i] && input[i] <= 122)
 		{
-			input[i] = input[i] + 3;
+			input[i] = input[i] + (i + 1) + 3;
 			if (input[i] > 122)
 			{
 				input[i] = input[i] - 25;
@@ -120,30 +119,42 @@ void encryption()
 		}
 		if (65 <= input[i] && input[i] <= 90)
 		{
-			input[i] = input[i] + 3;
+			input[i] = input[i] + (i + 1) + 3;
 			if (input[i] > 90)
 			{
 				input[i] = input[i] - 25;
 			}
 		}
 	}
+
+	char o = input[0];
+	input[0] = input[i-1];
+	input[i-1] = o;
+	
 	printf("加密后的密码：");
-	display(input);
+	Display(input);
 	printf("\n");
 }
 void decryption()
 {
-	char input[100];
+	char input[50];
+	int i;
+
 	int n = s_gets(input);
 	while (n == -1)
 	{
 		n = s_gets(input);
 	}
-	for (int i = 0;i < 16;i++)
+
+	char o = input[0];
+	input[0] = input[strlen(input) - 1];
+	input[strlen(input) - 1] = o;
+
+	for (i = 0;i < strlen(input);i++)
 	{
 		if (48 <= input[i] && input[i] <= 57)
 		{
-			input[i] = input[i] - 3;
+			input[i] = input[i] - (strlen(input) - i) - 3;
 			if (input[i] < 48)
 			{
 				input[i] = input[i] + 8;
@@ -151,7 +162,7 @@ void decryption()
 		}
 		if (97 <= input[i] && input[i] <= 122)
 		{
-			input[i] = input[i] - 3;
+			input[i] = input[i] - (strlen(input) - i) - 3;
 			if (input[i] < 97)
 			{
 				input[i] = input[i] + 25;
@@ -159,7 +170,7 @@ void decryption()
 		}
 		if (65 <= input[i] && input[i] <= 90)
 		{
-			input[i] = input[i] - 3;
+			input[i] = input[i] - (strlen(input) - i) - 3;
 			if (input[i] < 65)
 			{
 				input[i] = input[i] + 25;
@@ -167,6 +178,14 @@ void decryption()
 		}
 	}
 	printf("解密后的密码：");
-	display(input);
+	Display(input);
 	printf("\n");
+}
+void Display(char* input)
+{
+	for (int m = strlen(input) - 1;m >= 0;m--)
+	{
+
+		printf("%c", input[m]);
+	}
 }
