@@ -1,17 +1,19 @@
-// not modified 1
+// 密码管理系统
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<string.h>
 #define max 16
-void interface();
-int s_gets(char* input);
-void Display(char* input);
-void encryption();
-void decryption();
+void interface();//界面
+int s_gets(char* input);//密码输入，以及部分出错提示
+void Display(char* input);//显示
+void encryption();//加密
+void decryption();//解密
 int main()
 {
 	int choose;
-	
+	//利用循环while，进行多次交互
+	//多选语句switch，完成功能选项
+          //if-else和break，完成退出功能
 	while (1)
 	{
 		interface();
@@ -43,6 +45,7 @@ int main()
 	
 	return 0;
 }
+//界面
 void interface()
 {
 	printf("============================\n");
@@ -56,6 +59,9 @@ void interface()
 	printf("============================\n");
 	printf("请选择：");
 }
+//输入密码
+//利用for循环语句和if语句，来对大小写字母和数字进行计数
+//利用strlen函数和if语句，完成对密码长度、输入是否正确的判别
 int s_gets(char* input)
 {
 	printf("请输入密码：");
@@ -88,6 +94,12 @@ int s_gets(char* input)
 		return 1;
 	}
 }
+//加密
+//利用s_gets函数和while，完成密码的正确输入
+//该函数完成了：
+//(1)将每个字符的ASCII码加上它在字符串中的位置(1开始)和偏移值3
+//(2)将字符串的第一位和最后一位调换顺序
+//(3)将字符串反转输出
 void encryption()
 {
 	char input[50];
@@ -135,6 +147,12 @@ void encryption()
 	Display(input);
 	printf("\n");
 }
+//解密
+//利用s_gets函数和while，完成密码的正确输入
+//该函数完成了：
+//(1)将字符串的第一位和最后一位调换顺序
+//(2)将每个字符的ASCII码减去它在字符串中的位置(1开始)和偏移值3
+//(3)将字符串反转输出
 void decryption()
 {
 	char input[50];
@@ -181,6 +199,8 @@ void decryption()
 	Display(input);
 	printf("\n");
 }
+//显示
+//字符串逆转输出
 void Display(char* input)
 {
 	for (int m = strlen(input) - 1;m >= 0;m--)
